@@ -66,7 +66,7 @@ class DAO():
         query = """ select count(distinct gds.`Date`)
                     from go_daily_sales gds, go_daily_sales gds2 
                     where gds.Product_number = %s and gds2.Product_number = %s and year(gds.`Date`) = %s
-                    and gds.`Date`  = gds2.`Date` """
+                    and gds.`Date` = gds2.`Date` and gds.Retailer_code = gds2.Retailer_code"""
 
         cursor.execute(query, (p1, p2, year))
         result = []
@@ -76,4 +76,4 @@ class DAO():
         cnx.close()
         cursor.close()
 
-        return result
+        return result[0][0]

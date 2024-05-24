@@ -49,13 +49,11 @@ class View(ft.UserControl):
         self.txtOut = ft.ListView(expand=1, spacing=10, padding=10, auto_scroll=True)
         self._page.controls.append(self.txtOut)
 
-        self._ddnode = ft.Dropdown(label="Product")
+        self._ddnode = ft.Dropdown(label="Product", on_change=self.activate_btn_search)
         self.btn_search = ft.ElevatedButton(text="Cerca Percorso", on_click=self._controller.handle_search, disabled=True)
         row2 = ft.Row([self._ddnode, self.btn_search],
                       alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row2)
-
-        self.controller.fillDDProduct()
 
         self.txtOut2 = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         self._page.controls.append(self.txtOut2)
@@ -83,4 +81,8 @@ class View(ft.UserControl):
 
     def activate_btn_graph(self, e):
         self.btn_graph.disabled = False
+        self.update_page()
+
+    def activate_btn_search(self, e):
+        self.btn_search.disabled = False
         self.update_page()
