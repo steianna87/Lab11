@@ -62,3 +62,11 @@ class Controller:
         self._model.find_path(product_num)
         self._view.txtOut2.controls.append(ft.Text(f"Numero spigoli percorso più lungo: {len(self._model.solBest)}"))
         self._view.update_page()
+        listaE = []
+        for u, v in self._model.grafo.edges:
+            peso = self._model.grafo[u][v]['weight']
+            listaE.append((u, v, peso))
+        listaE.sort(key=lambda x: x[2])
+        for u, v, peso in listaE:
+            print(f"{u}, {v}, peso: {peso}")
+        print(f"Lunga : {self._model.solBest.__len__()} {self._model.solBest}")

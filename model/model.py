@@ -1,6 +1,7 @@
 import copy
 
 import networkx as nx
+from matplotlib import pyplot as plt
 
 from database.DAO import DAO
 
@@ -82,6 +83,26 @@ class Model:
             peso = self.grafo[product][nodo]['weight']
             self.ricorsione([(product, nodo, peso)], False, peso)
 
+        '''grafoTemp = nx.Graph(self.grafo.edges(data=True))
+        labels = nx.get_edge_attributes(grafoTemp, 'weight')
+        pos = nx.spring_layout(grafoTemp)
+
+        nx.draw(grafoTemp, with_labels=True, pos=pos)
+        nx.draw_networkx_edge_labels(grafoTemp, pos, edge_labels=labels)
+        plt.savefig('Grafo')
+        plt.show()
+
+        soluzione = nx.Graph()
+        for tuple in self.solBest:
+            soluzione.add_edge(tuple[0], tuple[1], weight=tuple[2])
+        labels = nx.get_edge_attributes(soluzione, 'weight')
+        pos = nx.spring_layout(soluzione)
+
+        nx.draw(soluzione, with_labels=True, pos=pos)
+        nx.draw_networkx_edge_labels(soluzione, pos, edge_labels=labels)
+        plt.savefig('Soluzione')
+        plt.show()'''
+
     def ricorsione(self, parziale, finito, bestPeso):
         ultimonodo = parziale[-1][1]
 
@@ -104,7 +125,6 @@ class Model:
                     parziale.pop()
                 else:
                     self.ricorsione(parziale, True, bestPeso)
-
 
     def get_maxPeso(self, parziale):
         return max(parziale, key=lambda x: x[2])
